@@ -280,56 +280,6 @@
             </div>
         </section>
 
-        <!-- SLAY NOMINATION DETAIL MODAL -->
-        <div id="nomination-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
-            <div id="nomination-modal-content" class="glass-panel w-full max-w-2xl p-6 sm:p-10 rounded-3xl border border-gold/40 relative shadow-[0_0_60px_rgba(212,175,55,0.25)] slay-modal-enter">
-                
-                <button onclick="closeNominationModal()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-
-                <!-- Header info -->
-                <div class="flex items-center gap-4 mb-6">
-                    <div id="modal-icon-box" class="w-16 h-16 rounded-2xl bg-gold/10 border border-gold/30 text-gold flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-                        <!-- Dynamic Icon -->
-                    </div>
-                    <div>
-                        <span id="modal-tag" class="text-xs font-mono tracking-widest text-gold uppercase block font-semibold">PEAK AWARDS 2026</span>
-                        <h3 id="modal-title" class="font-cinzel text-2xl sm:text-4xl font-bold text-white text-gold-gradient">--</h3>
-                    </div>
-                </div>
-
-                <p id="modal-desc" class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 font-light">--</p>
-
-                <!-- Nominees list preview (SLAY Style) -->
-                <div class="mb-8 border-t border-white/10 pt-6">
-                    <h4 class="text-xs font-mono uppercase tracking-widest text-gold/80 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-star"></i> Претенденты в номинации
-                    </h4>
-                    <div id="modal-candidates" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <!-- Dynamic Candidates -->
-                    </div>
-                </div>
-
-                <!-- Footer Modal Actions -->
-                <div class="flex items-center justify-between border-t border-white/10 pt-6">
-                    <div class="flex items-center gap-2">
-                        <button onclick="navigateModal(-1)" class="w-10 h-10 rounded-xl glass-card border border-gold/30 text-gold flex items-center justify-center hover:bg-gold hover:text-dark transition-colors">
-                            <i class="fa-solid fa-arrow-left"></i>
-                        </button>
-                        <button onclick="navigateModal(1)" class="w-10 h-10 rounded-xl glass-card border border-gold/30 text-gold flex items-center justify-center hover:bg-gold hover:text-dark transition-colors">
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-
-                    <button onclick="openSubmitModalWithCategory(activeModalIndex); closeNominationModal();" class="btn-gold px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-dark flex items-center gap-2">
-                        <i class="fa-solid fa-video"></i> Предложить клип в эту номинацию
-                    </button>
-                </div>
-
-            </div>
-        </div>
-
         <!-- COUNTDOWN TIMER SECTION -->
         <section id="countdown" class="py-16 relative">
             <div class="max-w-4xl mx-auto px-4">
@@ -677,15 +627,7 @@
                 <div>
                     <label class="block text-xs font-semibold text-gray-300 uppercase mb-1">Номинация</label>
                     <select id="submit-category-select" class="w-full px-4 py-3 rounded-xl bg-dark/80 border border-gray-700 text-white text-sm focus:border-gold focus:outline-none">
-                        <option>Фрик года</option>
-                        <option>Режим года</option>
-                        <option>Мем года</option>
-                        <option>Лучший дота игрок</option>
-                        <option>Самый активный игрок на сервере</option>
-                        <option>Лучший вало игрок</option>
-                        <option>Плакса года</option>
-                        <option>Топ роблоксер года</option>
-                        <option>Топ донатер года</option>
+                        <!-- Populated dynamically via JS -->
                     </select>
                 </div>
 
@@ -708,23 +650,74 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // NOMINATIONS DATA FOR 2026 WITH SLAY CANDIDATES
+        // EXACT NOMINATIONS DATA FOR 2026
         const nominations = [
-            { id: 1, icon: 'fa-masks-theater', title: 'Фрик года', desc: 'Главный эпатажный персонаж сообщества, чьи выходки обсуждали абсолютно все.', candidates: ['Crimson', 'ShadowBlade', 'Vortex', 'KABOOM'] },
-            { id: 2, icon: 'fa-gamepad', title: 'Режим года', desc: 'Самый затягивающий и атмосферный кастомный режим или игровой мод года.', candidates: ['Криминалити', 'BedWars Peak Edition', 'RP City Life', 'Zombie Arena'] },
-            { id: 3, icon: 'fa-laugh-squint', title: 'Мем года', desc: 'Шутка, фраза или момент, превратившиеся в культовый локальный мем.', candidates: ['Ах, ах, ах, новый вандал', 'Тащи катку', 'Альтаб во время флайта', 'AFK в важный момент'] },
-            { id: 4, icon: 'fa-crosshairs', title: 'Лучший дота игрок', desc: 'Мастер микроконтроля, таймингов и невероятных камбэков в Dota 2.', candidates: ['molypsis', 'DotaKing99', 'RampageBoy', 'PhantomX'] },
-            { id: 5, icon: 'fa-fire', title: 'Самый активный игрок', desc: 'Человек, который проводит на сервере 24/7 и знает всё и обо всех.', candidates: ['probel', 'NoSleepMan', 'OnlineHero', 'NightWatch'] },
-            { id: 6, icon: 'fa-gun', title: 'Лучший вало игрок', desc: 'Аим-машина и главный клатчер в Valorant с железными нервами.', candidates: ['molypsis', 'OneTapMaster', 'VandalGod', 'AimbotPro'] },
-            { id: 7, icon: 'fa-face-sad-cry', title: 'Плакса года', desc: 'Король драмы и тильта, который находит причину для слёз в любой ситуации.', candidates: ['probel', 'RageQuitter', 'TiltLord', 'CryingBoy'] },
-            { id: 8, icon: 'fa-cube', title: 'Топ роблоксер года', desc: 'Лучший исследователь и профи в метавселенной Roblox.', candidates: ['germuha86', 'RobloxPro', 'BlockBuilder', 'CraftMaster'] },
-            { id: 9, icon: 'fa-gem', title: 'Топ донатер года', desc: 'Щедрый меценат, поддерживающий проекты и стримы сообщества.', candidates: ['Porozik', 'WhaleRider', 'GoldGiver', 'VIP_Sponsor'] }
+            { 
+                id: 1, 
+                icon: 'fa-masks-theater', 
+                title: 'Фрик года', 
+                desc: 'Номинация, где отбирается по своему характеру самый необычный и в то же время странный человек, который мог ради шутки нести такую чушь, но все же она вызывала какую-то улыбку.'
+            },
+            { 
+                id: 2, 
+                icon: 'fa-clock-rotate-left', 
+                title: 'Момент года', 
+                desc: 'Момент, когда ты думаешь: «Это именно то, что я буду вспоминать долгое время». Этот момент может вызывать абсолютно разные эмоции: дискомфорт, стыд, смех.'
+            },
+            { 
+                id: 3, 
+                icon: 'fa-laugh-squint', 
+                title: 'Мем года', 
+                desc: 'Шутка, которая смогла запомниться надолго и по сей день вызывает смех.'
+            },
+            { 
+                id: 4, 
+                icon: 'fa-gamepad', 
+                title: 'Игра года', 
+                desc: 'Игра, в которой были пролиты сотни часов, убиты нервы и пережиты все катки.'
+            },
+            { 
+                id: 5, 
+                icon: 'fa-headset', 
+                title: 'Самый активный на Discord-сервере', 
+                desc: 'Кто вообще выходит из голосовых каналов?'
+            },
+            { 
+                id: 6, 
+                icon: 'fa-yin-yang', 
+                title: 'Спокойствие года', 
+                desc: 'Номинация для человека с титановым дзеном: его ни забайтит любой рейдж байт, ни любая игра и ситуация.'
+            },
+            { 
+                id: 7, 
+                icon: 'fa-photo-film', 
+                title: 'Топ-сигейм-криатор', 
+                desc: 'Автор самых лучших, смешных и качественных паков.'
+            },
+            { 
+                id: 8, 
+                icon: 'fa-music', 
+                title: 'Трек года', 
+                desc: 'Что заело в голове у всех.'
+            },
+            { 
+                id: 9, 
+                icon: 'fa-fire-flame-curved', 
+                title: 'Конфликтёр года', 
+                desc: 'Главный генератор споров, который способен раздуть любое слово в конфликт и втянуть в него весь сервер.'
+            },
+            { 
+                id: 10, 
+                icon: 'fa-burst', 
+                title: 'Рейдж года', 
+                desc: 'Момент, когда стол трещал по швам, а наушники отправлялись в свободный полёт. Номинация за самый громкий, сочный и запоминающийся срыв года.'
+            }
         ];
 
         // Demo Storage for Submitted Clips
         let submittedClips = [
-            { id: 'clip-101', nickname: 'probel_fan', category: 'Плакса года', url: 'https://twitch.tv/clip/DemoSampleClip1', status: 'pending', date: '10.11.2026, 14:20' },
-            { id: 'clip-102', nickname: 'germuha_official', category: 'Топ роблоксер года', url: 'https://youtube.com/watch?v=demo', status: 'approved', date: '10.11.2026, 13:15' },
+            { id: 'clip-101', nickname: 'probel_fan', category: 'Спокойствие года', url: 'https://twitch.tv/clip/DemoSampleClip1', status: 'pending', date: '10.11.2026, 14:20' },
+            { id: 'clip-102', nickname: 'germuha_official', category: 'Игра года', url: 'https://youtube.com/watch?v=demo', status: 'approved', date: '10.11.2026, 13:15' },
             { id: 'clip-103', nickname: 'CrimsonKing', category: 'Фрик года', url: 'https://clips.twitch.tv/sample2', status: 'pending', date: '09.11.2026, 21:05' }
         ];
 
@@ -775,14 +768,14 @@
 
                             <div class="nomination-card-inner">
                                 <div class="flex items-center justify-between mb-6">
-                                    <span class="text-[11px] font-mono font-bold text-gold px-3 py-1 rounded-full bg-gold/10 border border-gold/30">#0${nom.id} NOMINATION</span>
+                                    <span class="text-[11px] font-mono font-bold text-gold px-3 py-1 rounded-full bg-gold/10 border border-gold/30">#${nom.id < 10 ? '0' + nom.id : nom.id} NOMINATION</span>
                                     <div class="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/30 text-gold flex items-center justify-center text-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
                                         <i class="fa-solid ${nom.icon}"></i>
                                     </div>
                                 </div>
 
                                 <h3 class="card-title font-cinzel text-2xl font-bold text-white mb-3">${nom.title}</h3>
-                                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed font-light line-clamp-2 mb-6">${nom.desc}</p>
+                                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed font-light line-clamp-3 mb-6">${nom.desc}</p>
 
                                 <div class="pt-4 border-t border-white/10 flex items-center justify-between">
                                     <span class="text-xs text-gold font-semibold uppercase tracking-wider flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
@@ -794,6 +787,17 @@
                         </div>
                     `;
                     container.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            }
+
+            // Populate form category select
+            const categorySelect = document.getElementById('submit-category-select');
+            if (categorySelect && categorySelect.children.length === 0) {
+                nominations.forEach(n => {
+                    const opt = document.createElement('option');
+                    opt.value = n.title;
+                    opt.textContent = n.title;
+                    categorySelect.appendChild(opt);
                 });
             }
 
