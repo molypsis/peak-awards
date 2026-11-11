@@ -43,6 +43,45 @@
             overflow-x: hidden;
         }
 
+        /* Плавная смена цветов фоновых градиентов */
+        @keyframes bgShift {
+            0% { transform: translate(-50%, 0) scale(1); opacity: 0.15; }
+            50% { transform: translate(-40%, 30px) scale(1.1); opacity: 0.25; }
+            100% { transform: translate(-50%, 0) scale(1); opacity: 0.15; }
+        }
+
+        @keyframes purpleShift {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.1; }
+            50% { transform: translate(30px, -20px) scale(1.15); opacity: 0.2; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.1; }
+        }
+
+        .animated-bg-gold {
+            animation: bgShift 12s ease-in-out infinite;
+        }
+
+        .animated-bg-purple {
+            animation: purpleShift 15s ease-in-out infinite;
+        }
+
+        /* Падающие золотые частицы по бокам */
+        @keyframes fallParticle {
+            0% { transform: translateY(-100px); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .falling-particle {
+            position: fixed;
+            width: 3px;
+            height: 15px;
+            background: linear-gradient(to bottom, rgba(212,175,55,0), rgba(212,175,55,0.8), rgba(243,229,171,0));
+            pointer-events: none;
+            z-index: 1;
+            animation: fallParticle linear infinite;
+        }
+
         /* Glassmorphism Styles */
         .glass-panel {
             background: rgba(18, 20, 26, 0.75);
@@ -75,7 +114,7 @@
             transform: translateY(-2px);
         }
 
-        /* 3D Carousel Slider for SLAY Nominal Transition */
+        /* 3D Carousel Slider */
         .slider-container {
             perspective: 1200px;
             transform-style: preserve-3d;
@@ -100,13 +139,11 @@
             transform: translateZ(45px);
         }
 
-        /* 3D Glow and Reflection FX */
         .card-reflection {
             background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 60%);
             pointer-events: none;
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -124,15 +161,21 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between relative selection:bg-gold/30 selection:text-gold-light">
 
-    <!-- Background Subtle Lights -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gold-glow/10 blur-[140px] pointer-events-none rounded-full z-0"></div>
-    <div class="fixed bottom-0 left-0 w-[400px] h-[400px] bg-purple-900/10 blur-[150px] pointer-events-none rounded-full z-0"></div>
+    <!-- Динамические фоновые подсветки с плавной сменой цветов -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-gold-glow/20 blur-[150px] pointer-events-none rounded-full z-0 animated-bg-gold"></div>
+    <div class="fixed bottom-0 left-0 w-[500px] h-[500px] bg-purple-900/20 blur-[160px] pointer-events-none rounded-full z-0 animated-bg-purple"></div>
+
+    <!-- Падающие золотые эффекты по бокам -->
+    <div class="falling-particle" style="left: 5%; animation-duration: 7s; animation-delay: 0s;"></div>
+    <div class="falling-particle" style="left: 12%; animation-duration: 10s; animation-delay: 3s;"></div>
+    <div class="falling-particle" style="left: 3%; animation-duration: 8s; animation-delay: 5s;"></div>
+    <div class="falling-particle" style="right: 5%; animation-duration: 6s; animation-delay: 1s;"></div>
+    <div class="falling-particle" style="right: 12%; animation-duration: 9s; animation-delay: 4s;"></div>
+    <div class="falling-particle" style="right: 8%; animation-duration: 11s; animation-delay: 2s;"></div>
 
     <!-- NAVBAR -->
     <header class="sticky top-0 z-40 w-full glass-panel border-b border-gold/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
-            <!-- Logo -->
             <a href="#" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center text-dark font-black text-xl shadow-[0_0_15px_rgba(212,175,55,0.3)] group-hover:scale-105 transition-transform">
                     <i class="fa-solid fa-crown text-dark text-lg"></i>
@@ -143,7 +186,6 @@
                 </div>
             </a>
 
-            <!-- Navigation Links -->
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
                 <a href="#about" class="text-gray-300 hover:text-gold transition-colors">О премии</a>
                 <a href="#nominations" class="text-gray-300 hover:text-gold transition-colors">Номинации</a>
@@ -152,9 +194,8 @@
                 <a href="#rules" class="text-gray-300 hover:text-gold transition-colors">Правила</a>
             </nav>
 
-            <!-- Action CTA -->
             <div class="flex items-center gap-3">
-                <button onclick="openAdminPanel()" class="glass-card hover:bg-gold/10 border border-gold/30 px-3.5 py-2 rounded-xl text-gold text-xs font-semibold flex items-center gap-2 transition-colors" title="Вход в Панель Организатора">
+                <button onclick="openAdminPanel()" class="glass-card hover:bg-gold/10 border border-gold/30 px-3.5 py-2 rounded-xl text-gold text-xs font-semibold flex items-center gap-2 transition-colors">
                     <i class="fa-solid fa-user-shield"></i>
                     <span class="hidden sm:inline">Админка</span>
                 </button>
@@ -167,13 +208,11 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main class="flex-grow z-10 relative">
 
         <!-- HERO SECTION -->
         <section id="about" class="py-20 md:py-28 relative overflow-hidden">
             <div class="max-w-5xl mx-auto px-4 text-center">
-                
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/30 bg-gold/5 text-gold text-xs font-mono tracking-widest uppercase mb-6 animate-pulse">
                     <i class="fa-solid fa-sparkles"></i> Главная Игровая Премия Сообщества 2026
                 </div>
@@ -197,7 +236,6 @@
                         <span>Победители 2025</span>
                     </a>
                 </div>
-
             </div>
         </section>
 
@@ -205,7 +243,6 @@
         <section id="nominations" class="py-16 md:py-24 relative overflow-hidden bg-dark-card/30 border-y border-gold/10">
             <div class="max-w-7xl mx-auto px-4">
                 
-                <!-- BEFORE VOTING COUNTDOWN BANNER -->
                 <div class="max-w-3xl mx-auto mb-14 glass-panel p-6 sm:p-8 rounded-3xl border border-gold/30 text-center relative overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/30 bg-gold/10 text-gold text-xs font-mono uppercase tracking-widest mb-3">
                         <i class="fa-solid fa-film text-gold animate-pulse"></i> Этап №1. Сбор и модерация заявок
@@ -599,7 +636,6 @@
             { id: 10, icon: 'fa-burst', title: 'Рейдж года', desc: 'Момент, когда стол трещал по швам, а наушники отправлялись в свободный полёт. Номинация за самый громкий, сочный и запоминающийся срыв года.' }
         ];
 
-        // Список категорий, в которые нельзя подавать клипы/варианты
         const disabledNominations = [
             'Самый активный на Discord-сервере',
             'Спокойствие года',
@@ -615,6 +651,28 @@
         let currentIndex = 0;
         let activeFilter = 'all';
         let isAdminAuthenticated = false;
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        function handle3DTilt(e) {
+            const container = document.getElementById('nomination-container');
+            if (!container) return;
+            const rect = container.getBoundingClientRect();
+            mouseX = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+            mouseY = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+
+            const activeCard = container.querySelector('.card-active');
+            if (activeCard) {
+                const tiltX = mouseY * -14;
+                const tiltY = mouseX * 18;
+                activeCard.style.transform = `translateX(0px) translateZ(140px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.08)`;
+            }
+        }
+
+        function reset3DTilt() {
+            renderCarousel();
+        }
 
         function renderCarousel() {
             const container = document.getElementById('nomination-container');
@@ -664,7 +722,6 @@
                 });
             }
 
-            // Populate form category select (только разрешенные номинации)
             const categorySelect = document.getElementById('submit-category-select');
             if (categorySelect && categorySelect.children.length === 0) {
                 nominations.forEach(n => {
@@ -722,7 +779,6 @@
         function handleCardClick(index) {
             const nom = nominations[index];
             if (disabledNominations.includes(nom.title)) {
-                // Игнорируем клик для отключенных номинаций
                 return;
             }
 
@@ -735,6 +791,7 @@
 
         function handleCategoryChange() {
             const select = document.getElementById('submit-category-select');
+            if (!select) return;
             const selectedTitle = select.value;
 
             const isTextCategory = (selectedTitle === 'Трек года' || selectedTitle === 'Игра года');
@@ -759,8 +816,8 @@
                 `;
                 urlGroup.classList.add('hidden');
                 textGroup.classList.remove('hidden');
-                urlInput.removeAttribute('required');
-                textInput.setAttribute('required', 'true');
+                if(urlInput) urlInput.removeAttribute('required');
+                if(textInput) textInput.setAttribute('required', 'true');
                 checkboxLabel.innerText = 'Я подтверждаю, что предложение не нарушает правила отбора (настоящее название, общеизвестная игра/трек).';
                 submitBtn.innerText = 'Отправить вариант на модерацию';
             } else {
@@ -774,8 +831,8 @@
                 `;
                 urlGroup.classList.remove('hidden');
                 textGroup.classList.add('hidden');
-                urlInput.setAttribute('required', 'true');
-                textInput.removeAttribute('required');
+                if(urlInput) urlInput.setAttribute('required', 'true');
+                if(textInput) textInput.removeAttribute('required');
                 checkboxLabel.innerText = 'Я подтверждаю, что клип не нарушает правила отбора (до 1 мин, без буллинга) и готов удалить его по просьбе участников.';
                 submitBtn.innerText = 'Отправить клип на модерацию';
             }
@@ -864,8 +921,10 @@
             filtersElem.innerHTML = `<button onclick="setAdminFilter('all')" class="px-3 py-1 rounded-xl text-xs font-semibold whitespace-nowrap ${activeFilter === 'all' ? 'bg-gold text-dark font-bold' : 'glass-card text-gray-400 hover:text-white'}">Все (${submittedClips.length})</button>`;
             
             nominations.forEach(n => {
-                const catCount = submittedClips.filter(c => c.category === n.title).length;
-                filtersElem.innerHTML += `<button onclick="setAdminFilter('${n.title}')" class="px-3 py-1 rounded-xl text-xs font-semibold whitespace-nowrap ${activeFilter === n.title ? 'bg-gold text-dark font-bold' : 'glass-card text-gray-400 hover:text-white'}">${n.title} (${catCount})</button>`;
+                if (!disabledNominations.includes(n.title)) {
+                    const catCount = submittedClips.filter(c => c.category === n.title).length;
+                    filtersElem.innerHTML += `<button onclick="setAdminFilter('${n.title}')" class="px-3 py-1 rounded-xl text-xs font-semibold whitespace-nowrap ${activeFilter === n.title ? 'bg-gold text-dark font-bold' : 'glass-card text-gray-400 hover:text-white'}">${n.title} (${catCount})</button>`;
+                }
             });
 
             const filtered = activeFilter === 'all' ? submittedClips : submittedClips.filter(c => c.category === activeFilter);
