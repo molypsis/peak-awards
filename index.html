@@ -1,771 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PEAK AWARDS 2026 — Community Choice</title>
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#D4AF37',
-                        'gold-light': '#F3E5AB',
-                        'gold-dark': '#AA7C11',
-                        'gold-glow': 'rgba(212,175,55,0.4)',
-                        dark: '#0A0B0E',
-                        'dark-card': '#12141A',
-                        'dark-border': '#222632'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        cinzel: ['Cinzel', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Google Fonts & Font Awesome Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        body {
-            background-color: #0A0B0E;
-            color: #E2E8F0;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Glassmorphism Styles */
-        .glass-panel {
-            background: rgba(18, 20, 26, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-        }
-
-        .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        /* Gold Gradient Text */
-        .text-gold-gradient {
-            background: linear-gradient(135deg, #FFF5C0 0%, #D4AF37 50%, #996515 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Gold Button Hover Effect */
-        .btn-gold {
-            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
-            transition: all 0.3s ease;
-        }
-        .btn-gold:hover {
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.45);
-            transform: translateY(-2px);
-        }
-
-        /* 3D Carousel Slider for SLAY Nominal Transition */
-        .slider-container {
-            perspective: 1200px;
-            transform-style: preserve-3d;
-        }
-
-        .nomination-card {
-            transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.55s ease, border-color 0.4s ease, box-shadow 0.5s ease;
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
-            will-change: transform, opacity;
-        }
-
-        .card-active {
-            transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-        }
-
-        .nomination-card-inner {
-            transform: translateZ(30px);
-            transition: transform 0.4s ease;
-        }
-        .nomination-card:hover .nomination-card-inner {
-            transform: translateZ(45px);
-        }
-
-        /* 3D Glow and Reflection FX */
-        .card-reflection {
-            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 60%);
-            pointer-events: none;
-        }
-
-        /* SLAY Modal Transition */
-        .slay-modal-enter {
-            animation: slayPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes slayPop {
-            0% { opacity: 0; transform: scale(0.8) translateY(30px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0A0B0E;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #222632;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #D4AF37;
-        }
-    </style>
-</head>
-<body class="min-h-screen flex flex-col justify-between relative selection:bg-gold/30 selection:text-gold-light">
-
-    <!-- Background Subtle Lights -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gold-glow/10 blur-[140px] pointer-events-none rounded-full z-0"></div>
-    <div class="fixed bottom-0 left-0 w-[400px] h-[400px] bg-purple-900/10 blur-[150px] pointer-events-none rounded-full z-0"></div>
-
-    <!-- NAVBAR -->
-    <header class="sticky top-0 z-40 w-full glass-panel border-b border-gold/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center text-dark font-black text-xl shadow-[0_0_15px_rgba(212,175,55,0.3)] group-hover:scale-105 transition-transform">
-                    <i class="fa-solid fa-crown text-dark text-lg"></i>
-                </div>
-                <div class="flex flex-col">
-                    <span class="font-cinzel font-bold text-lg tracking-wider text-white group-hover:text-gold transition-colors">PEAK AWARDS</span>
-                    <span class="text-[10px] font-mono tracking-widest text-gold/70 -mt-1 uppercase">Community Choice</span>
-                </div>
-            </a>
-
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
-                <a href="#about" class="text-gray-300 hover:text-gold transition-colors">О премии</a>
-                <a href="#nominations" class="text-gray-300 hover:text-gold transition-colors">Номинации</a>
-                <a href="#countdown" class="text-gray-300 hover:text-gold transition-colors">Обратный отсчет</a>
-                <a href="#hall-of-fame" class="text-gray-300 hover:text-gold transition-colors">Зал славы</a>
-                <a href="#rules" class="text-gray-300 hover:text-gold transition-colors">Правила</a>
-            </nav>
-
-            <!-- Action CTA -->
-            <div class="flex items-center gap-3">
-                <button onclick="openAdminPanel()" class="glass-card hover:bg-gold/10 border border-gold/30 px-3.5 py-2 rounded-xl text-gold text-xs font-semibold flex items-center gap-2 transition-colors" title="Вход в Панель Организатора">
-                    <i class="fa-solid fa-user-shield"></i>
-                    <span class="hidden sm:inline">Админка</span>
-                </button>
-
-                <button onclick="openSubmitModal()" class="btn-gold px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-dark flex items-center gap-2">
-                    <i class="fa-solid fa-paper-plane"></i>
-                    <span>Предложить клип</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- MAIN CONTENT -->
-    <main class="flex-grow z-10 relative">
-
-        <!-- HERO SECTION -->
-        <section id="about" class="py-20 md:py-28 relative overflow-hidden">
-            <div class="max-w-5xl mx-auto px-4 text-center">
-                
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/30 bg-gold/5 text-gold text-xs font-mono tracking-widest uppercase mb-6 animate-pulse">
-                    <i class="fa-solid fa-sparkles"></i> Главная Игровая Премия Сообщества 2026
-                </div>
-
-                <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white mb-6 leading-tight">
-                    ВЫБИРАЙ ЛУЧШИХ В <br/>
-                    <span class="text-gold-gradient">PEAK AWARDS 2026</span>
-                </h1>
-
-                <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-                    Главное ежегодное событие нашего сообщества. Мы определяем лучших игроков, самые мемные моменты, фановые фейлы и легендарные достижения года!
-                </p>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#nominations" class="btn-gold w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm tracking-wider text-dark uppercase flex items-center justify-center gap-2">
-                        <span>Смотреть номинации</span>
-                        <i class="fa-solid fa-arrow-down"></i>
-                    </a>
-                    <a href="#hall-of-fame" class="glass-card hover:bg-white/5 border border-white/10 w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-sm text-gray-200 transition-colors flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-trophy text-gold"></i>
-                        <span>Победители 2025</span>
-                    </a>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- NOMINATIONS SECTION (SLAY-STYLE 3D SLIDER) -->
-        <section id="nominations" class="py-16 md:py-24 relative overflow-hidden bg-dark-card/30 border-y border-gold/10">
-            <div class="max-w-7xl mx-auto px-4">
-                
-                <!-- BEFORE VOTING COUNTDOWN BANNER (SLAY STYLE) -->
-                <div class="max-w-3xl mx-auto mb-14 glass-panel p-6 sm:p-8 rounded-3xl border border-gold/30 text-center relative overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/30 bg-gold/10 text-gold text-xs font-mono uppercase tracking-widest mb-3">
-                        <i class="fa-solid fa-film text-gold animate-pulse"></i> Этап №1. Сбор и модерация клипов
-                    </div>
-                    
-                    <h3 class="font-cinzel text-xl sm:text-3xl font-bold text-white mb-2">
-                        До открытия голосования осталось:
-                    </h3>
-                    <p class="text-xs sm:text-sm text-gray-400 mb-6">Сейчас идёт приём клипов. Присылайте свои ролики — все заявки отсматриваются вручную. Голосование за номинантов стартует 01.12.2026!</p>
-
-                    <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-lg mx-auto">
-                        <div class="glass-card p-3 rounded-xl border border-gold/20">
-                            <span id="vote-timer-days" class="font-cinzel text-2xl sm:text-4xl font-black text-gold-gradient block">00</span>
-                            <span class="text-[10px] text-gray-400 uppercase tracking-widest mt-1 block">Дней</span>
-                        </div>
-                        <div class="glass-card p-3 rounded-xl border border-gold/20">
-                            <span id="vote-timer-hours" class="font-cinzel text-2xl sm:text-4xl font-black text-gold-gradient block">00</span>
-                            <span class="text-[10px] text-gray-400 uppercase tracking-widest mt-1 block">Часов</span>
-                        </div>
-                        <div class="glass-card p-3 rounded-xl border border-gold/20">
-                            <span id="vote-timer-minutes" class="font-cinzel text-2xl sm:text-4xl font-black text-gold-gradient block">00</span>
-                            <span class="text-[10px] text-gray-400 uppercase tracking-widest mt-1 block">Минут</span>
-                        </div>
-                        <div class="glass-card p-3 rounded-xl border border-gold/20">
-                            <span id="vote-timer-seconds" class="font-cinzel text-2xl sm:text-4xl font-black text-gold-gradient block">00</span>
-                            <span class="text-[10px] text-gray-400 uppercase tracking-widest mt-1 block">Секунд</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center mb-12">
-                    <span class="text-xs font-mono tracking-widest text-gold uppercase">Приём Ваших Моментов</span>
-                    <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-white mt-2">Номинации 2026</h2>
-                    <p class="text-gray-400 text-sm mt-2">Выберите категорию и предложите свой клип для участия в премии</p>
-                </div>
-
-                <!-- 3D CAROUSEL CONTAINER -->
-                <div class="relative max-w-4xl mx-auto min-h-[480px] flex items-center justify-center">
-
-                    <!-- Left Control Arrow -->
-                    <button onclick="prevSlide()" class="absolute left-2 sm:-left-6 z-30 w-12 h-12 rounded-full glass-panel border border-gold/40 text-gold flex items-center justify-center hover:bg-gold hover:text-dark transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] active:scale-95">
-                        <i class="fa-solid fa-chevron-left text-lg"></i>
-                    </button>
-
-                    <!-- Cards Display Wrapper with Dynamic Mouse 3D Tilt -->
-                    <div id="nomination-container" onmousemove="handle3DTilt(event)" onmouseleave="reset3DTilt()" class="slider-container w-full h-[450px] relative flex items-center justify-center">
-                        <!-- Cards dynamically rendered via JS -->
-                    </div>
-
-                    <!-- Right Control Arrow -->
-                    <button onclick="nextSlide()" class="absolute right-2 sm:-right-6 z-30 w-12 h-12 rounded-full glass-panel border border-gold/40 text-gold flex items-center justify-center hover:bg-gold hover:text-dark transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] active:scale-95">
-                        <i class="fa-solid fa-chevron-right text-lg"></i>
-                    </button>
-
-                </div>
-
-                <!-- Slider Pagination Indicator -->
-                <div class="flex items-center justify-center gap-2 mt-8" id="pagination">
-                    <!-- Dots generated via JS -->
-                </div>
-
-            </div>
-        </section>
-
-        <!-- COUNTDOWN TIMER SECTION -->
-        <section id="countdown" class="py-16 relative">
-            <div class="max-w-4xl mx-auto px-4">
-                <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-gold/30 text-center relative overflow-hidden shadow-[0_0_40px_rgba(212,175,55,0.15)]">
-                    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-gold-glow/10 blur-3xl pointer-events-none"></div>
-                    
-                    <span class="text-xs font-mono tracking-widest text-gold uppercase px-4 py-1.5 rounded-full border border-gold/30 bg-gold/5 inline-block mb-4">
-                        <i class="fa-regular fa-clock mr-1"></i> До начала премии 13.12.2026
-                    </span>
-                    
-                    <h3 class="font-cinzel text-2xl sm:text-4xl font-bold text-white mb-8">Отсчёт до PEAK AWARDS 2026</h3>
-
-                    <!-- Countdown Grid -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
-                        <div class="glass-card p-4 rounded-2xl border border-gold/20">
-                            <span id="timer-days" class="font-cinzel text-3xl sm:text-5xl font-black text-gold-gradient block">00</span>
-                            <span class="text-xs text-gray-400 uppercase tracking-widest mt-1 block">Дней</span>
-                        </div>
-                        <div class="glass-card p-4 rounded-2xl border border-gold/20">
-                            <span id="timer-hours" class="font-cinzel text-3xl sm:text-5xl font-black text-gold-gradient block">00</span>
-                            <span class="text-xs text-gray-400 uppercase tracking-widest mt-1 block">Часов</span>
-                        </div>
-                        <div class="glass-card p-4 rounded-2xl border border-gold/20">
-                            <span id="timer-minutes" class="font-cinzel text-3xl sm:text-5xl font-black text-gold-gradient block">00</span>
-                            <span class="text-xs text-gray-400 uppercase tracking-widest mt-1 block">Минут</span>
-                        </div>
-                        <div class="glass-card p-4 rounded-2xl border border-gold/20">
-                            <span id="timer-seconds" class="font-cinzel text-3xl sm:text-5xl font-black text-gold-gradient block">00</span>
-                            <span class="text-xs text-gray-400 uppercase tracking-widest mt-1 block">Секунд</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- HALL OF FAME (PAST WINNERS 2025) -->
-        <section id="hall-of-fame" class="py-16 md:py-24 relative">
-            <div class="max-w-6xl mx-auto px-4">
-                
-                <div class="text-center mb-12">
-                    <span class="text-xs font-mono tracking-widest text-gold uppercase">Архив Побед</span>
-                    <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-white mt-2">Зал Славы</h2>
-                    <p class="text-gray-400 text-sm mt-2">Легенды, вписавшие своё имя в историю PEAK AWARDS</p>
-                </div>
-
-                <!-- Winners Grid 2025 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                    <!-- Winner 1 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 hover:border-gold/50 transition-colors relative group">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
-                                <i class="fa-solid fa-masks-theater text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs text-gold uppercase tracking-wider font-semibold">Фрик года</h4>
-                                <h3 class="font-cinzel font-bold text-xl text-white group-hover:text-gold-light transition-colors">Crimson</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Winner 2 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 hover:border-gold/50 transition-colors relative group">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
-                                <i class="fa-solid fa-gamepad text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs text-gold uppercase tracking-wider font-semibold">Режим года</h4>
-                                <h3 class="font-cinzel font-bold text-xl text-white group-hover:text-gold-light transition-colors">Криминалити</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Winner 3 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 hover:border-gold/50 transition-colors relative group">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
-                                <i class="fa-solid fa-laugh-squint text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs text-gold uppercase tracking-wider font-semibold">Мем года</h4>
-                                <h3 class="font-cinzel font-bold text-xl text-white group-hover:text-gold-light transition-colors">Ах, ах, ах, новый вандал</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Winner 4 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 hover:border-gold/50 transition-colors relative group">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
-                                <i class="fa-solid fa-crosshairs text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs text-gold uppercase tracking-wider font-semibold">Лучший дота игрок</h4>
-                                <h3 class="font-cinzel font-bold text-xl text-white group-hover:text-gold-light transition-colors">molypsis</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Winner 5 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 hover:border-gold/50 transition-colors relative group">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
-                                <i class="fa-solid fa-fire text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs text-gold uppercase tracking-wider font-semibold">Самый активный игрок</h4>
-                                <h3 class="font-cinzel font-bold text-xl text-white group-hover:text-gold-light transition-colors">probel</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Winner 6 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 hover:border-gold/50 transition-colors relative group">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
-                                <i class="fa-solid fa-gun text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs text-gold uppercase tracking-wider font-semibold">Лучший вало игрок</h4>
-                                <h3 class="font-cinzel font-bold text-xl text-white group-hover:text-gold-light transition-colors">molypsis</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Winner 7 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 hover:border-gold/50 transition-colors relative group">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
-                                <i class="fa-solid fa-face-sad-cry text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs text-gold uppercase tracking-wider font-semibold">Плакса года</h4>
-                                <h3 class="font-cinzel font-bold text-xl text-white group-hover:text-gold-light transition-colors">probel</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Winner 8 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 hover:border-gold/50 transition-colors relative group">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
-                                <i class="fa-solid fa-cube text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs text-gold uppercase tracking-wider font-semibold">Топ роблоксер года</h4>
-                                <h3 class="font-cinzel font-bold text-xl text-white group-hover:text-gold-light transition-colors">germuha86</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Winner 9 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 hover:border-gold/50 transition-colors relative group">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
-                                <i class="fa-solid fa-gem text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs text-gold uppercase tracking-wider font-semibold">Топ донатер года</h4>
-                                <h3 class="font-cinzel font-bold text-xl text-white group-hover:text-gold-light transition-colors">Porozik</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        <!-- RULES SECTION -->
-        <section id="rules" class="py-16 relative bg-dark-card/40 border-t border-gold/10">
-            <div class="max-w-5xl mx-auto px-4">
-                
-                <div class="text-center mb-12">
-                    <span class="text-xs font-mono tracking-widest text-gold uppercase">Критерии Модерации</span>
-                    <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white mt-1">Правила Отбора Клипов</h2>
-                    <p class="text-gray-400 text-sm mt-2">Каждый клип отсматривается вручную на соответствие данным требованиям:</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <!-- Rule 1 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 flex gap-4 items-start">
-                        <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 text-gold font-bold flex-shrink-0 flex items-center justify-center text-lg">
-                            <i class="fa-solid fa-clock"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-semibold text-lg mb-1">1. Длительность до 1 минуты</h4>
-                            <p class="text-xs text-gray-400 leading-relaxed">Продолжительность отправляемого видео или клипа не должна превышать 60 секунд. Короткие и яркие моменты имеют наибольший приоритет.</p>
-                        </div>
-                    </div>
-
-                    <!-- Rule 2 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 flex gap-4 items-start">
-                        <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 text-gold font-bold flex-shrink-0 flex items-center justify-center text-lg">
-                            <i class="fa-solid fa-lightbulb"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-semibold text-lg mb-1">2. Смысл и привязка</h4>
-                            <p class="text-xs text-gray-400 leading-relaxed">Клип должен содержать понятную шутку, яркий игровой момент или курьёз и четко подходить под выбранную номинацию.</p>
-                        </div>
-                    </div>
-
-                    <!-- Rule 3 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 flex gap-4 items-start">
-                        <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 text-gold font-bold flex-shrink-0 flex items-center justify-center text-lg">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-semibold text-lg mb-1">3. Без агрессивного буллинга</h4>
-                            <p class="text-xs text-gray-400 leading-relaxed">Клип не должен содержать токсичную травлю или сильный буллинг участников. Мы за здоровый юмор и фановые моменты!</p>
-                        </div>
-                    </div>
-
-                    <!-- Rule 4 -->
-                    <div class="glass-panel p-6 rounded-2xl border border-gold/20 flex gap-4 items-start">
-                        <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 text-gold font-bold flex-shrink-0 flex items-center justify-center text-lg">
-                            <i class="fa-solid fa-user-xmark"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-semibold text-lg mb-1">4. Право на отзыв клипа</h4>
-                            <p class="text-xs text-gray-400 leading-relaxed">Если любое лицо, присутствующее на клипе, против его публикации, отправивший клип обязан по первому требованию удалить его.</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="z-10 border-t border-gold/10 py-10 glass-panel">
-        <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center">
-            <div class="flex items-center justify-center gap-2 mb-4 sm:mb-0">
-                <i class="fa-solid fa-crown text-gold"></i>
-                <span class="font-cinzel font-bold text-white tracking-wider">PEAK AWARDS 2026</span>
-            </div>
-            <p class="text-xs text-gray-500">© 2026 PEAK Awards. Все права защищены. <button onclick="openAdminPanel()" class="underline hover:text-gold ml-2">Панель модерации (F8)</button></p>
-        </div>
-    </footer>
-
-    <!-- ADMIN LOGIN AUTH MODAL -->
-    <div id="admin-auth-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
-        <div class="glass-panel w-full max-w-sm p-6 sm:p-8 rounded-3xl border border-gold/40 relative shadow-[0_0_50px_rgba(212,175,55,0.2)] text-center">
-            <button onclick="closeAdminAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 text-gray-400 hover:text-white flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="w-14 h-14 rounded-2xl bg-gold/10 border border-gold/30 text-gold flex items-center justify-center text-2xl mx-auto mb-4 shadow-[0_0_20px_rgba(212,175,55,0.25)]">
-                <i class="fa-solid fa-lock"></i>
-            </div>
-
-            <h3 class="font-cinzel text-xl font-bold text-white mb-1">Доступ к Админке</h3>
-            <p class="text-xs text-gray-400 mb-6">Введите пароль администратора для входа в модерацию клипов</p>
-
-            <form onsubmit="verifyAdminPassword(event)" class="space-y-4">
-                <div>
-                    <input type="password" id="admin-password-input" required placeholder="Введите пароль" class="w-full px-4 py-3 rounded-xl bg-dark/90 border border-gray-700 text-white text-center tracking-widest text-lg font-mono focus:border-gold focus:outline-none">
-                    <p id="admin-auth-error" class="text-xs text-red-400 mt-2 hidden font-semibold"><i class="fa-solid fa-circle-exclamation mr-1"></i> Неверный пароль!</p>
-                </div>
-
-                <button type="submit" class="btn-gold w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-dark">
-                    Войти в систему
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ADMIN MODERATION PANEL MODAL -->
-    <div id="admin-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
-        <div class="glass-panel w-full max-w-5xl p-6 sm:p-8 rounded-3xl border border-gold/40 relative max-h-[90vh] flex flex-col shadow-[0_0_60px_rgba(212,175,55,0.25)]">
-            
-            <button onclick="closeAdminPanel()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white flex items-center justify-center transition-colors">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-
-            <!-- Admin Header -->
-            <div class="flex items-center justify-between border-b border-gold/20 pb-4 mb-6">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/30 text-gold flex items-center justify-center text-lg">
-                        <i class="fa-solid fa-user-shield"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-cinzel text-xl font-bold text-white">Панель Модератора Клипов</h3>
-                        <p class="text-xs text-gold/80">Управление присланными видео для PEAK AWARDS 2026</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span id="admin-clip-count" class="px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-mono font-bold">
-                        Заявок: 0
-                    </span>
-                    <button onclick="clearAllClips()" class="text-xs text-red-400 hover:text-red-300 underline ml-2">Очистить список</button>
-                </div>
-            </div>
-
-            <!-- Category Filter Tabs -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-none" id="admin-category-filters">
-                <!-- Dynamic Filter Buttons -->
-            </div>
-
-            <!-- Clips List Table / Container -->
-            <div class="flex-grow overflow-y-auto pr-1 space-y-3" id="admin-clips-list">
-                <!-- Dynamic Clip Items -->
-            </div>
-
-            <!-- Footer info -->
-            <div class="border-t border-white/10 pt-4 mt-4 flex items-center justify-between text-xs text-gray-400">
-                <span><i class="fa-solid fa-circle-info text-gold mr-1"></i> Одобренные клипы автоматически пойдут в итоговое голосование 01.12.2026</span>
-                <button onclick="exportClipsJSON()" class="btn-gold px-4 py-1.5 rounded-lg font-bold text-[11px] text-dark uppercase">Скачать список (JSON)</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- CLIP SUBMISSION MODAL -->
-    <div id="submit-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
-        <div class="glass-panel w-full max-w-lg p-6 sm:p-8 rounded-3xl border border-gold/30 relative max-h-[90vh] overflow-y-auto">
-            
-            <button onclick="closeSubmitModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 text-gray-400 hover:text-white flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <h3 class="font-cinzel text-2xl font-bold text-white mb-1">Предложить клип</h3>
-            <p class="text-xs text-gray-400 mb-4">Все присланные клипы проходят личную проверку организатором.</p>
-
-            <!-- Rules Reminder Box -->
-            <div class="p-3.5 rounded-xl bg-gold/5 border border-gold/20 mb-5 text-[11px] text-gray-300 space-y-1">
-                <div class="font-bold text-gold uppercase tracking-wider text-[10px] mb-1 flex items-center gap-1">
-                    <i class="fa-solid fa-circle-info"></i> Памятка по правилам:
-                </div>
-                <p>• Длительность не более 1 минуты.</p>
-                <p>• Наличие шутки / игрового смысла.</p>
-                <p>• Без сильного буллинга.</p>
-                <p>• Удаление по просьбе участников клипа.</p>
-            </div>
-
-            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-gray-300 uppercase mb-1">Твой никнейм</label>
-                    <input type="text" required placeholder="Player#1234" class="w-full px-4 py-3 rounded-xl bg-dark/80 border border-gray-700 text-white text-sm focus:border-gold focus:outline-none">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-gray-300 uppercase mb-1">Номинация</label>
-                    <select id="submit-category-select" class="w-full px-4 py-3 rounded-xl bg-dark/80 border border-gray-700 text-white text-sm focus:border-gold focus:outline-none">
-                        <!-- Populated dynamically via JS -->
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-gray-300 uppercase mb-1">Ссылка на клип (Twitch / YouTube / VK / Google Drive)</label>
-                    <input type="url" required placeholder="https://..." class="w-full px-4 py-3 rounded-xl bg-dark/80 border border-gray-700 text-white text-sm focus:border-gold focus:outline-none">
-                </div>
-
-                <div class="flex items-start gap-2 pt-1">
-                    <input type="checkbox" id="rules-agree" required class="mt-0.5 rounded border-gray-700 bg-dark accent-gold">
-                    <label for="rules-agree" class="text-[11px] text-gray-400">Я подтверждаю, что клип не нарушает правила отбора (до 1 мин, без буллинга) и готов удалить его по просьбе участников.</label>
-                </div>
-
-                <button type="submit" class="btn-gold w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider text-dark mt-2">
-                    Отправить клип на модерацию
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        // EXACT NOMINATIONS DATA FOR 2026
-        const nominations = [
-            { 
-                id: 1, 
-                icon: 'fa-masks-theater', 
-                title: 'Фрик года', 
-                desc: 'Номинация, где отбирается по своему характеру самый необычный и в то же время странный человек, который мог ради шутки нести такую чушь, но все же она вызывала какую-то улыбку.'
-            },
-            { 
-                id: 2, 
-                icon: 'fa-clock-rotate-left', 
-                title: 'Момент года', 
-                desc: 'Момент, когда ты думаешь: «Это именно то, что я буду вспоминать долгое время». Этот момент может вызывать абсолютно разные эмоции: дискомфорт, стыд, смех.'
-            },
-            { 
-                id: 3, 
-                icon: 'fa-laugh-squint', 
-                title: 'Мем года', 
-                desc: 'Шутка, которая смогла запомниться надолго и по сей день вызывает смех.'
-            },
-            { 
-                id: 4, 
-                icon: 'fa-gamepad', 
-                title: 'Игра года', 
-                desc: 'Игра, в которой были пролиты сотни часов, убиты нервы и пережиты все катки.'
-            },
-            { 
-                id: 5, 
-                icon: 'fa-headset', 
-                title: 'Самый активный на Discord-сервере', 
-                desc: 'Кто вообще выходит из голосовых каналов?'
-            },
-            { 
-                id: 6, 
-                icon: 'fa-yin-yang', 
-                title: 'Спокойствие года', 
-                desc: 'Номинация для человека с титановым дзеном: его ни забайтит любой рейдж байт, ни любая игра и ситуация.'
-            },
-            { 
-                id: 7, 
-                icon: 'fa-photo-film', 
-                title: 'Топ-сигейм-криатор', 
-                desc: 'Автор самых лучших, смешных и качественных паков.'
-            },
-            { 
-                id: 8, 
-                icon: 'fa-music', 
-                title: 'Трек года', 
-                desc: 'Что заело в голове у всех.'
-            },
-            { 
-                id: 9, 
-                icon: 'fa-fire-flame-curved', 
-                title: 'Конфликтёр года', 
-                desc: 'Главный генератор споров, который способен раздуть любое слово в конфликт и втянуть в него весь сервер.'
-            },
-            { 
-                id: 10, 
-                icon: 'fa-burst', 
-                title: 'Рейдж года', 
-                desc: 'Момент, когда стол трещал по швам, а наушники отправлялись в свободный полёт. Номинация за самый громкий, сочный и запоминающийся срыв года.'
-            }
-        ];
-
-        // Demo Storage for Submitted Clips
-        let submittedClips = [
-            { id: 'clip-101', nickname: 'probel_fan', category: 'Спокойствие года', url: 'https://twitch.tv/clip/DemoSampleClip1', status: 'pending', date: '10.11.2026, 14:20' },
-            { id: 'clip-102', nickname: 'germuha_official', category: 'Игра года', url: 'https://youtube.com/watch?v=demo', status: 'approved', date: '10.11.2026, 13:15' },
-            { id: 'clip-103', nickname: 'CrimsonKing', category: 'Фрик года', url: 'https://clips.twitch.tv/sample2', status: 'pending', date: '09.11.2026, 21:05' }
-        ];
-
-        let currentIndex = 0;
-        let activeFilter = 'all';
-        let isAdminAuthenticated = false;
-
-        // Mouse 3D Dynamics
-        let mouseX = 0;
-        let mouseY = 0;
-
-        function handle3DTilt(e) {
-            const container = document.getElementById('nomination-container');
-            if (!container) return;
-            const rect = container.getBoundingClientRect();
-            mouseX = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-            mouseY = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
-
-            const activeCard = container.querySelector('.card-active');
-            if (activeCard) {
-                const tiltX = mouseY * -14;
-                const tiltY = mouseX * 18;
-                activeCard.style.transform = `translateX(0px) translateZ(140px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.08)`;
-            }
-        }
-
-        function reset3DTilt() {
-            renderCarousel();
-        }
-
-        // Render Enhanced 3D Cards with Smooth SLAY Transition Dynamics
-        function renderCarousel() {
-            const container = document.getElementById('nomination-container');
-            const pagination = document.getElementById('pagination');
-            
-            if (!container) return;
-
-            // Initialize cards if not rendered yet
-            if (container.children.length !== nominations.length) {
-                container.innerHTML = '';
-                nominations.forEach((nom, index) => {
-                    const cardHTML = `
-                        <div id="nom-card-${index}" 
-                             onclick="handleCardClick(${index})" 
-                             class="nomination-card absolute w-80 sm:w-96 glass-panel p-8 rounded-3xl border cursor-pointer group overflow-hidden">
-                            
-                            <div class="card-reflection absolute inset-0 opacity-40"></div>
-
+<!-- ... existing code ... -->
                             <div class="nomination-card-inner">
                                 <div class="flex items-center justify-between mb-6">
                                     <span class="text-[11px] font-mono font-bold text-gold px-3 py-1 rounded-full bg-gold/10 border border-gold/30">#${nom.id < 10 ? '0' + nom.id : nom.id} NOMINATION</span>
@@ -779,141 +12,76 @@
 
                                 <div class="pt-4 border-t border-white/10 flex items-center justify-between">
                                     <span class="text-xs text-gold font-semibold uppercase tracking-wider flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
-                                        <span>Предложить клип</span> <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                                        <span>${(nom.title === 'Трек года' || nom.title === 'Игра года') ? 'Предложить вариант' : 'Предложить клип'}</span> <i class="fa-solid ${(nom.title === 'Трек года' || nom.title === 'Игра года') ? 'fa-font' : 'fa-paper-plane'} text-[10px]"></i>
                                     </span>
                                     <span class="text-[10px] font-mono text-gray-500">PEAK 2026</span>
                                 </div>
                             </div>
-                        </div>
-                    `;
-                    container.insertAdjacentHTML('beforeend', cardHTML);
-                });
-            }
-
-            // Populate form category select
-            const categorySelect = document.getElementById('submit-category-select');
-            if (categorySelect && categorySelect.children.length === 0) {
-                nominations.forEach(n => {
-                    const opt = document.createElement('option');
-                    opt.value = n.title;
-                    opt.textContent = n.title;
-                    categorySelect.appendChild(opt);
-                });
-            }
-
-            // Smoothly update transforms for existing cards without DOM re-creation
-            nominations.forEach((nom, index) => {
-                const card = document.getElementById(`nom-card-${index}`);
-                if (!card) return;
-
-                let offset = index - currentIndex;
-                
-                if (offset < -Math.floor(nominations.length / 2)) offset += nominations.length;
-                if (offset > Math.floor(nominations.length / 2)) offset -= nominations.length;
-
-                const isActive = offset === 0;
-                const absOffset = Math.abs(offset);
-
-                const translateX = offset * 260; 
-                const translateZ = isActive ? 120 : -absOffset * 180; 
-                const rotateY = offset * -32; 
-                const opacity = absOffset > 2 ? 0 : (isActive ? 1 : 0.45 - absOffset * 0.1); 
-                const scale = isActive ? 1.05 : 0.82;
-
-                card.style.transform = `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
-                card.style.opacity = opacity;
-                card.style.zIndex = 30 - absOffset;
-                card.style.pointerEvents = absOffset > 2 ? 'none' : 'auto';
-
-                const titleElem = card.querySelector('.card-title');
-
-                if (isActive) {
-                    card.className = "nomination-card absolute w-80 sm:w-96 glass-panel p-8 rounded-3xl border border-gold shadow-[0_0_40px_rgba(212,175,55,0.35)] card-active cursor-pointer group overflow-hidden";
-                    if (titleElem) titleElem.classList.add('text-gold-gradient');
-                } else {
-                    card.className = "nomination-card absolute w-80 sm:w-96 glass-panel p-8 rounded-3xl border border-gray-800/80 cursor-pointer group overflow-hidden";
-                    if (titleElem) titleElem.classList.remove('text-gold-gradient');
-                }
-            });
-
-            // Update Pagination Dots
-            pagination.innerHTML = '';
-            nominations.forEach((_, index) => {
-                const isActive = index === currentIndex;
-                const dot = document.createElement('button');
-                dot.className = `h-2.5 rounded-full transition-all duration-300 ${isActive ? 'bg-gold w-8 shadow-[0_0_10px_rgba(212,175,55,0.6)]' : 'bg-gray-700 hover:bg-gray-500 w-2.5'}`;
-                dot.onclick = () => goToSlide(index);
-                pagination.appendChild(dot);
-            });
-        }
-
-        function handleCardClick(index) {
-            if (index === currentIndex) {
-                openSubmitModalWithCategory(index);
-            } else {
-                goToSlide(index);
-            }
-        }
-
-        // ADMIN PASSWORD AUTHENTICATION (PASSWORD: 7492640)
-        function openAdminPanel() {
-            if (isAdminAuthenticated) {
-                showAdminPanelModal();
-            } else {
-                openAdminAuthModal();
-            }
-        }
-
-        function openAdminAuthModal() {
-            const modal = document.getElementById('admin-auth-modal');
-            const input = document.getElementById('admin-password-input');
-            const error = document.getElementById('admin-auth-error');
-            if (input) input.value = '';
-            if (error) error.classList.add('hidden');
+<!-- ... existing code ... -->
+    <!-- CLIP SUBMISSION MODAL -->
+    <div id="submit-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-panel w-full max-w-lg p-6 sm:p-8 rounded-3xl border border-gold/30 relative max-h-[90vh] overflow-y-auto">
             
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                if (input) input.focus();
-            }, 10);
-        }
+            <button onclick="closeSubmitModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 text-gray-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
 
-        function closeAdminAuthModal() {
-            const modal = document.getElementById('admin-auth-modal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        }
+            <h3 id="submit-modal-title" class="font-cinzel text-2xl font-bold text-white mb-1">Предложить клип</h3>
+            <p id="submit-modal-subtitle" class="text-xs text-gray-400 mb-4">Все присланные заявки проходят личную проверку организатором.</p>
 
-        function verifyAdminPassword(e) {
-            e.preventDefault();
-            const passwordInput = document.getElementById('admin-password-input').value.trim();
-            const errorElem = document.getElementById('admin-auth-error');
+            <!-- Dynamic Rules Reminder Box -->
+            <div class="p-3.5 rounded-xl bg-gold/5 border border-gold/20 mb-5 text-[11px] text-gray-300 space-y-1">
+                <div class="font-bold text-gold uppercase tracking-wider text-[10px] mb-1 flex items-center gap-1">
+                    <i class="fa-solid fa-circle-info"></i> <span id="rules-box-header">ПАМЯТКА ПО ПРАВИЛАМ:</span>
+                </div>
+                <div id="rules-box-content">
+                    <p>• Длительность не более 1 минуты.</p>
+                    <p>• Наличие шутки / игрового смысла.</p>
+                    <p>• Без сильного буллинга.</p>
+                    <p>• Удаление по просьбе участников клипа.</p>
+                </div>
+            </div>
 
-            if (passwordInput === '7492640') {
-                isAdminAuthenticated = true;
-                closeAdminAuthModal();
-                setTimeout(() => {
-                    showAdminPanelModal();
-                }, 300);
-            } else {
-                if (errorElem) errorElem.classList.remove('hidden');
-                document.getElementById('admin-password-input').value = '';
-            }
-        }
+            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase mb-1">Твой никнейм</label>
+                    <input type="text" required placeholder="Player#1234" class="w-full px-4 py-3 rounded-xl bg-dark/80 border border-gray-700 text-white text-sm focus:border-gold focus:outline-none">
+                </div>
 
-        function showAdminPanelModal() {
-            renderAdminPanel();
-            const modal = document.getElementById('admin-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-        }
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase mb-1">Номинация</label>
+                    <select id="submit-category-select" onchange="updateModalFormMode(this.value)" class="w-full px-4 py-3 rounded-xl bg-dark/80 border border-gray-700 text-white text-sm focus:border-gold focus:outline-none">
+                        <!-- Populated dynamically via JS -->
+                    </select>
+                </div>
 
-        function closeAdminPanel() {
-            const modal = document.getElementById('admin-modal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        }
+                <!-- Media Link Input (Clips) -->
+                <div id="media-link-group">
+                    <label class="block text-xs font-semibold text-gray-300 uppercase mb-1">Ссылка на клип (Twitch / YouTube / VK / Google Drive)</label>
+                    <input type="url" id="submit-clip-url" placeholder="https://..." class="w-full px-4 py-3 rounded-xl bg-dark/80 border border-gray-700 text-white text-sm focus:border-gold focus:outline-none">
+                </div>
 
+                <!-- Text Option Input (Games / Music) -->
+                <div id="text-option-group" class="hidden">
+                    <label id="text-option-label" class="block text-xs font-semibold text-gray-300 uppercase mb-1">Название (игры или трека)</label>
+                    <input type="text" id="submit-text-val" placeholder="Исполнитель — Название трека / Название игры" class="w-full px-4 py-3 rounded-xl bg-dark/80 border border-gray-700 text-white text-sm focus:border-gold focus:outline-none">
+                </div>
+
+                <div class="flex items-start gap-2 pt-1">
+                    <input type="checkbox" id="rules-agree" required class="mt-0.5 rounded border-gray-700 bg-dark accent-gold">
+                    <label for="rules-agree" id="rules-checkbox-text" class="text-[11px] text-gray-400">Я подтверждаю, что клип не нарушает правила отбора (до 1 мин, без буллинга) и готов удалить его по просьбе участников.</label>
+                </div>
+
+                <button type="submit" id="submit-form-btn" class="btn-gold w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider text-dark mt-2">
+                    Отправить клип на модерацию
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+<!-- ... existing code ... -->
         function renderAdminPanel() {
             const countElem = document.getElementById('admin-clip-count');
             const listElem = document.getElementById('admin-clips-list');
@@ -942,7 +110,7 @@
                 listElem.innerHTML = `
                     <div class="text-center py-12 text-gray-500 text-sm">
                         <i class="fa-solid fa-inbox text-3xl mb-2 text-gray-600 block"></i>
-                        Клипов в этой категории пока нет.
+                        Заявок в этой категории пока нет.
                     </div>
                 `;
                 return;
@@ -956,6 +124,11 @@
                     ? '<span class="px-2.5 py-0.5 rounded bg-red-500/10 border border-red-500/30 text-red-400 text-[10px] font-mono uppercase">Отклонен</span>'
                     : '<span class="px-2.5 py-0.5 rounded bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-[10px] font-mono uppercase">На проверке</span>';
 
+                const isTextOption = clip.url && !clip.url.startsWith('http');
+                const contentDisplay = isTextOption 
+                    ? `<div class="text-xs text-gold-light bg-gold/10 px-3 py-1.5 rounded-lg border border-gold/30 font-semibold flex items-center gap-2 my-1"><i class="fa-solid fa-font text-gold"></i> Предложенный вариант: <span class="text-white">${clip.url}</span></div>`
+                    : `<div class="text-xs text-blue-400 underline font-mono break-all my-1"><a href="${clip.url}" target="_blank" class="hover:text-blue-300 flex items-center gap-1"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> ${clip.url}</a></div>`;
+
                 listElem.innerHTML += `
                     <div class="glass-card p-4 rounded-2xl border border-gold/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-gold/30 transition-colors">
                         <div class="space-y-1">
@@ -967,11 +140,7 @@
                             <div class="text-xs text-gold flex items-center gap-1.5 font-medium">
                                 <i class="fa-solid fa-tag text-[10px]"></i> ${clip.category}
                             </div>
-                            <div class="text-xs text-blue-400 underline font-mono break-all">
-                                <a href="${clip.url}" target="_blank" class="hover:text-blue-300 flex items-center gap-1">
-                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> ${clip.url}
-                                </a>
-                            </div>
+                            ${contentDisplay}
                         </div>
 
                         <div class="flex items-center gap-2 self-end sm:self-center">
@@ -990,144 +159,128 @@
             });
         }
 
-        function setAdminFilter(cat) {
-            activeFilter = cat;
-            renderAdminPanel();
-        }
-
-        function changeClipStatus(clipId, status) {
-            const clip = submittedClips.find(c => c.id === clipId);
-            if (clip) {
-                clip.status = status;
-                renderAdminPanel();
-            }
-        }
-
-        function deleteClip(clipId) {
-            submittedClips = submittedClips.filter(c => c.id !== clipId);
-            renderAdminPanel();
-        }
-
-        function clearAllClips() {
-            if (confirm('Вы уверены, что хотите удалить все заявки клипов?')) {
-                submittedClips = [];
-                renderAdminPanel();
-            }
-        }
-
-        function exportClipsJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(submittedClips, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `peak_clips_export_${new Date().toISOString().slice(0,10)}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-        }
+<!-- ... existing code ... -->
 
         function handleFormSubmit(e) {
             e.preventDefault();
-            const nick = e.target.querySelector('input[type="text"]').value;
+            const nickInput = e.target.querySelector('input[type="text"]');
+            const nick = nickInput ? nickInput.value : 'Аноним';
             const cat = document.getElementById('submit-category-select').value;
-            const url = e.target.querySelector('input[type="url"]').value;
+            
+            const isTextMode = (cat === 'Игра года' || cat === 'Трек года');
+            let contentVal = '';
+
+            if (isTextMode) {
+                const textElem = document.getElementById('submit-text-val');
+                contentVal = textElem ? textElem.value.trim() : '';
+                if (!contentVal) {
+                    alert('Пожалуйста, введите название!');
+                    return;
+                }
+            } else {
+                const clipElem = document.getElementById('submit-clip-url');
+                contentVal = clipElem ? clipElem.value.trim() : '';
+                if (!contentVal) {
+                    alert('Пожалуйста, укажите ссылку на клип!');
+                    return;
+                }
+            }
 
             const newClip = {
                 id: 'clip-' + Date.now(),
                 nickname: nick,
                 category: cat,
-                url: url,
+                url: contentVal,
                 status: 'pending',
                 date: new Date().toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
             };
 
             submittedClips.unshift(newClip);
-            alert('Спасибо! Ваш клип отправлен на личную модерацию организатору.');
+            alert(isTextMode ? 'Спасибо! Ваш вариант отправлен на модерацию.' : 'Спасибо! Ваш клип отправлен на личную модерацию организатору.');
             closeSubmitModal();
             e.target.reset();
         }
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % nominations.length;
-            renderCarousel();
-        }
+        // Switch modal between Clips mode & Text Option mode (Games / Songs)
+        function updateModalFormMode(categoryTitle) {
+            const isTextMode = (categoryTitle === 'Игра года' || categoryTitle === 'Трек года');
 
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + nominations.length) % nominations.length;
-            renderCarousel();
-        }
+            const modalTitle = document.getElementById('submit-modal-title');
+            const mediaGroup = document.getElementById('media-link-group');
+            const clipUrlInput = document.getElementById('submit-clip-url');
+            const textGroup = document.getElementById('text-option-group');
+            const textValInput = document.getElementById('submit-text-val');
+            const textLabel = document.getElementById('text-option-label');
+            const rulesContent = document.getElementById('rules-box-content');
+            const rulesCheckboxText = document.getElementById('rules-checkbox-text');
+            const submitBtn = document.getElementById('submit-form-btn');
 
-        function goToSlide(index) {
-            currentIndex = index;
-            renderCarousel();
-        }
+            if (isTextMode) {
+                if (modalTitle) modalTitle.innerText = 'Предложить вариант';
+                
+                if (mediaGroup) mediaGroup.classList.add('hidden');
+                if (clipUrlInput) clipUrlInput.removeAttribute('required');
 
-        // Countdown Timer Logic (Target Date: 13.12.2026 00:00:00)
-        function startCountdown() {
-            const targetDate = new Date('December 13, 2026 00:00:00').getTime();
+                if (textGroup) textGroup.classList.remove('hidden');
+                if (textValInput) textValInput.setAttribute('required', 'true');
 
-            function updateTimer() {
-                const now = new Date().getTime();
-                const difference = targetDate - now;
-
-                if (difference < 0) {
-                    document.getElementById('timer-days').innerText = "00";
-                    document.getElementById('timer-hours').innerText = "00";
-                    document.getElementById('timer-minutes').innerText = "00";
-                    document.getElementById('timer-seconds').innerText = "00";
-                    return;
+                if (textLabel) {
+                    textLabel.innerText = categoryTitle === 'Трек года' ? 'Название трека и исполнитель' : 'Название игры';
+                }
+                if (textValInput) {
+                    textValInput.placeholder = categoryTitle === 'Трек года' ? 'Исполнитель — Название трека' : 'Название игры (например: Dota 2)';
                 }
 
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                if (rulesContent) {
+                    rulesContent.innerHTML = `
+                        <p>• Игра и песня должна быть настоящей и не иметь оскорбительный характер.</p>
+                        <p>• Нельзя писать рандомные игры и треки.</p>
+                        <p>• Большая часть людей должна знать этот трек и игру.</p>
+                    `;
+                }
 
-                document.getElementById('timer-days').innerText = days < 10 ? '0' + days : days;
-                document.getElementById('timer-hours').innerText = hours < 10 ? '0' + hours : hours;
-                document.getElementById('timer-minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-                document.getElementById('timer-seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+                if (rulesCheckboxText) {
+                    rulesCheckboxText.innerText = 'Я подтверждаю, что предложенный вариант соответствует правилам и известен сообществу.';
+                }
+
+                if (submitBtn) {
+                    submitBtn.innerText = 'ОТПРАВИТЬ ВАРИАНТ НА МОДЕРАЦИЮ';
+                }
+            } else {
+                if (modalTitle) modalTitle.innerText = 'Предложить клип';
+
+                if (textGroup) textGroup.classList.add('hidden');
+                if (textValInput) textValInput.removeAttribute('required');
+
+                if (mediaGroup) mediaGroup.classList.remove('hidden');
+                if (clipUrlInput) clipUrlInput.setAttribute('required', 'true');
+
+                if (rulesContent) {
+                    rulesContent.innerHTML = `
+                        <p>• Длительность не более 1 минуты.</p>
+                        <p>• Наличие шутки / игрового смысла.</p>
+                        <p>• Без сильного буллинга.</p>
+                        <p>• Удаление по просьбе участников клипа.</p>
+                    `;
+                }
+
+                if (rulesCheckboxText) {
+                    rulesCheckboxText.innerText = 'Я подтверждаю, что клип не нарушает правила отбора (до 1 мин, без буллинга) и готов удалить его по просьбе участников.';
+                }
+
+                if (submitBtn) {
+                    submitBtn.innerText = 'ОТПРАВИТЬ КЛИП НА МОДЕРАЦИЮ';
+                }
             }
-
-            const voteTargetDate = new Date('December 1, 2026 00:00:00').getTime();
-
-            function updateVoteTimer() {
-                const now = new Date().getTime();
-                const difference = voteTargetDate - now;
-
-                if (difference < 0) {
-                    if (document.getElementById('vote-timer-days')) {
-                        document.getElementById('vote-timer-days').innerText = "00";
-                        document.getElementById('vote-timer-hours').innerText = "00";
-                        document.getElementById('vote-timer-minutes').innerText = "00";
-                        document.getElementById('vote-timer-seconds').innerText = "00";
-                    }
-                    return;
-                }
-
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-                if (document.getElementById('vote-timer-days')) {
-                    document.getElementById('vote-timer-days').innerText = days < 10 ? '0' + days : days;
-                    document.getElementById('vote-timer-hours').innerText = hours < 10 ? '0' + hours : hours;
-                    document.getElementById('vote-timer-minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-                    document.getElementById('vote-timer-seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
-                }
-            }
-
-            updateTimer();
-            updateVoteTimer();
-            setInterval(() => {
-                updateTimer();
-                updateVoteTimer();
-            }, 1000);
         }
 
         // Modal Handling
         function openSubmitModal() {
             const modal = document.getElementById('submit-modal');
+            const select = document.getElementById('submit-category-select');
+            if (select) {
+                updateModalFormMode(select.value);
+            }
             modal.classList.remove('hidden');
             setTimeout(() => modal.classList.remove('opacity-0'), 10);
         }
@@ -1136,6 +289,7 @@
             const select = document.getElementById('submit-category-select');
             if (select && nominations[index]) {
                 select.selectedIndex = index;
+                updateModalFormMode(nominations[index].title);
             }
             openSubmitModal();
         }
@@ -1145,38 +299,4 @@
             modal.classList.add('opacity-0');
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
-
-        // Touch & Swipe Support for Slider
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        window.addEventListener('load', () => {
-            renderCarousel();
-            startCountdown();
-
-            const sliderElem = document.getElementById('nomination-container');
-            if (sliderElem) {
-                sliderElem.addEventListener('touchstart', e => {
-                    touchStartX = e.changedTouches[0].screenX;
-                }, { passive: true });
-
-                sliderElem.addEventListener('touchend', e => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    if (touchStartX - touchEndX > 50) nextSlide();
-                    if (touchEndX - touchStartX > 50) prevSlide();
-                }, { passive: true });
-            }
-        });
-
-        // Keyboard Controls (Arrows + F8 Admin Hotkey)
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
-            if (e.key === 'F8') {
-                e.preventDefault();
-                openAdminPanel();
-            }
-        });
-    </script>
-</body>
-</html>
+<!-- ... existing code ... -->
